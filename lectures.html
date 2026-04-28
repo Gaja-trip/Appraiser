@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>과목별 기본 강의 - 감평학습실</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-page="lectures">
+    <div class="app-shell">
+      <aside class="desktop-sidebar" aria-label="데스크톱 주요 메뉴">
+        <a class="brand" href="index.html" aria-label="감평학습실 홈">
+          <span class="brand-mark">AP</span>
+          <span><strong>감평학습실</strong><small>Appraiser Prep</small></span>
+        </a>
+        <label class="search-field side-search" for="desktopSearch">
+          <span data-icon="search"></span>
+          <input id="desktopSearch" type="search" placeholder="자료, 과목, 회차 검색" data-search-input>
+        </label>
+        <nav class="side-nav" id="desktopUtilityNav" aria-label="통합 메뉴"></nav>
+        <div class="study-status" aria-label="내 학습 현황">
+          <span>이번 주 목표</span>
+          <strong>기출 4회 + 기본서 3단원</strong>
+          <div class="status-meter" aria-hidden="true"><span style="width: 68%"></span></div>
+        </div>
+      </aside>
+      <div class="page-frame">
+        <header class="mobile-header">
+          <a class="brand compact" href="index.html" aria-label="감평학습실 홈"><span class="brand-mark">AP</span><strong>감평학습실</strong></a>
+          <div class="mobile-actions">
+            <button class="icon-button" type="button" data-focus-search aria-label="검색"><span data-icon="search"></span></button>
+            <button class="icon-button" type="button" id="menuToggle" aria-label="메뉴" aria-expanded="false" aria-controls="mobileMenu"><span data-icon="menu"></span></button>
+          </div>
+        </header>
+        <div class="mobile-menu" id="mobileMenu" hidden>
+          <label class="search-field" for="mobileSearch"><span data-icon="search"></span><input id="mobileSearch" type="search" placeholder="자료, 과목, 회차 검색" data-search-input></label>
+          <div class="mobile-menu-grid"><nav id="mobileUtilityNav" aria-label="모바일 통합 메뉴"></nav><nav id="mobileLearningNav" aria-label="모바일 학습 메뉴"></nav></div>
+        </div>
+        <header class="desktop-topbar"><nav class="learning-nav" id="desktopLearningNav" aria-label="학습 축 메뉴"></nav></header>
+        <main class="content" id="pageContent"></main>
+      </div>
+      <nav class="mobile-bottom-tabs" id="mobileBottomTabs" aria-label="모바일 하단 탭"></nav>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
