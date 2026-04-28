@@ -20,6 +20,8 @@ npm run build
 
 빌드 결과는 `dist` 폴더에 생성됩니다. Vercel은 `vercel.json` 설정에 따라 `dist`를 정적 사이트로 배포합니다.
 
+GitHub에 저장하면 `.github/workflows/vercel.yml`이 PR에서는 Preview 배포, `main` 브랜치 push에서는 Production 배포를 실행합니다. 자세한 설정 순서는 `docs/deployment.md`를 참고하세요.
+
 `Data` 폴더는 `.vercelignore`로 배포 번들에서 제외됩니다. 자료 파일은 외부 스토리지에 올리고, 아래 둘 중 하나로 연결합니다.
 
 ### 방법 1: 기본 URL로 연결
