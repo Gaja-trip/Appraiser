@@ -15,6 +15,8 @@ const icons = {
 };
 
 const page = document.body.dataset.page || "home";
+const appConfig = window.APP_CONFIG || {};
+const appStorageUrls = window.APP_STORAGE_URLS || {};
 
 const utilityMenu = [
   { id: "search", label: "통합검색", href: "resources.html", icon: "search" },
@@ -403,6 +405,28 @@ function icon(name) {
   return `<span data-icon="${name}"></span>`;
 }
 
+function storageKeyFor(item) {
+  return item.storageKey || item.href.replace(/^Data\//, "");
+}
+
+function joinUrl(base, ...parts) {
+  const cleanBase = String(base || "").replace(/\/+$/, "");
+  const cleanParts = parts
+    .filter(Boolean)
+    .map((part) => String(part).replace(/^\/+|\/+$/g, ""))
+    .filter(Boolean);
+  return encodeURI([cleanBase, ...cleanParts].join("/"));
+}
+
+function getResourceHref(item) {
+  const key = storageKeyFor(item);
+  if (appStorageUrls[key]) return appStorageUrls[key];
+  if (appConfig.materialsBaseUrl) {
+    return joinUrl(appConfig.materialsBaseUrl, appConfig.materialsPathPrefix, key);
+  }
+  return encodeURI(item.href);
+}
+
 function renderNav(containerId, items) {
   const container = $(`#${containerId}`);
   if (!container) return;
@@ -506,7 +530,7 @@ function resourceCard(item) {
       </div>
       <footer>
         <span class="chip gold">${escapeHtml(item.type)}</span>
-        <a class="open-link" href="${encodeURI(item.href)}" target="_blank" rel="noreferrer">
+        <a class="open-link" href="${getResourceHref(item)}" target="_blank" rel="noreferrer">
           ${icon("open")}
           <span>열기</span>
         </a>
@@ -517,7 +541,7 @@ function resourceCard(item) {
 
 function examItem(item) {
   return `
-    <a class="exam-item" href="${encodeURI(item.href)}" target="_blank" rel="noreferrer">
+    <a class="exam-item" href="${getResourceHref(item)}" target="_blank" rel="noreferrer">
       <div class="exam-meta">
         <span class="chip blue">${escapeHtml(item.year)}</span>
         <span class="chip">${escapeHtml(item.round)}</span>

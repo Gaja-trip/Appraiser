@@ -1,0 +1,14 @@
+{
+  "name": "appraiser-study-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-static.mjs",
+    "dev": "node scripts/dev-server.mjs",
+    "storage:manifest": "node scripts/generate-storage-manifest.mjs",
+    "storage:upload": "node scripts/upload-data-to-blob.mjs"
+  },
+  "optionalDependencies": {
+    "@vercel/blob": "latest"
+  }
+}
