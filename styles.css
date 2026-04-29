@@ -609,6 +609,85 @@ h3 {
   font-weight: 800;
 }
 
+.linked-study-grid,
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.linked-study-card,
+.insight-panel {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.linked-study-card h3,
+.insight-panel h3 {
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+.linked-study-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.linked-study-section {
+  display: grid;
+  gap: 8px;
+}
+
+.linked-study-section strong {
+  font-size: 13px;
+}
+
+.step-list,
+.point-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.tag-row,
+.link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.link-list .open-link {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--brand);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.link-list .open-link span:last-child {
+  overflow-wrap: anywhere;
+}
+
+.insight-grid {
+  padding-top: 20px;
+}
+
+.insight-panel .link-list {
+  padding-top: 2px;
+}
+
 .qa-strip {
   display: grid;
   gap: 18px;
@@ -703,6 +782,14 @@ h3 {
 
   .metric-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .linked-study-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .insight-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .resource-toolbar {
@@ -833,6 +920,10 @@ h3 {
   }
 
   .resource-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .linked-study-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

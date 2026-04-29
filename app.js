@@ -357,6 +357,79 @@ const analysisItems = [
   }
 ];
 
+const lectureProblemLinks = [
+  {
+    subject: "민법",
+    stage: "1차",
+    tone: "green",
+    textbook: "민법 기본서: 권리변동, 물권, 채권 핵심 조문",
+    lectureFocus: "조문 요건과 판례 키워드를 먼저 강의한 뒤 2023년 1교시 객관식으로 확인합니다.",
+    problemScope: "2023년 제34회 1차 1교시",
+    examKeys: ["기출문제/2023년도 제34회 감정평가사 1차시험 1교시.pdf"],
+    solveFlow: ["조문 요건 표시", "선지별 판례 키워드 확인", "오답 조문을 기본서 목차에 되돌려 표시"],
+    deliverables: ["조문 체크리스트", "판례 오답노트", "회독용 선지 태그"]
+  },
+  {
+    subject: "경제학",
+    stage: "1차",
+    tone: "blue",
+    textbook: "경제학 기본서: 수요·공급, 거시균형, 물가와 이자율",
+    lectureFocus: "그래프와 계산식을 강의 단위로 쪼갠 뒤 같은 1교시 기출에서 계산형 문제를 연결합니다.",
+    problemScope: "2023년 제34회 1차 1교시",
+    examKeys: ["기출문제/2023년도 제34회 감정평가사 1차시험 1교시.pdf"],
+    solveFlow: ["그래프 축과 이동 방향 정리", "공식 적용 조건 확인", "계산 실수 유형을 별도 태그로 저장"],
+    deliverables: ["그래프 풀이표", "계산 공식표", "약점 유형 리포트"]
+  },
+  {
+    subject: "부동산학",
+    stage: "1차",
+    tone: "gold",
+    textbook: "부동산학 기본서: 시장론, 정책론, 투자론",
+    lectureFocus: "개념 정의와 제도 비교를 강의한 뒤 2023년 1교시 선지 판단 문제로 복습합니다.",
+    problemScope: "2023년 제34회 1차 1교시",
+    examKeys: ["기출문제/2023년도 제34회 감정평가사 1차시험 1교시.pdf"],
+    solveFlow: ["개념 정의 암기", "유사 제도 비교", "선지 표현의 예외 문구 표시"],
+    deliverables: ["개념 비교표", "정책 키워드맵", "예외 선지 모음"]
+  },
+  {
+    subject: "감정평가 관계법규",
+    stage: "1차",
+    tone: "rose",
+    textbook: "관계법규 기본서: 감정평가법, 부동산공시법, 토지보상법",
+    lectureFocus: "법령 구조와 절차 조문을 강의한 뒤 2023년 2교시 기출로 조문 적용을 점검합니다.",
+    problemScope: "2023년 제34회 1차 2교시",
+    examKeys: ["기출문제/2023년도 제34회 감정평가사 1차시험 2교시.pdf"],
+    solveFlow: ["법령별 절차 흐름 표시", "기간·권한·주체 선지 분리", "틀린 선지를 조문 위치로 되돌리기"],
+    deliverables: ["법령 절차표", "기간 암기표", "조문 근거 노트"]
+  },
+  {
+    subject: "회계학",
+    stage: "1차",
+    tone: "green",
+    textbook: "회계학 기본서: 재무회계, 원가관리회계, 회계원리",
+    lectureFocus: "분개와 계산 구조를 강의한 뒤 2023년 2교시 계산형 기출을 풀이 자료로 연결합니다.",
+    problemScope: "2023년 제34회 1차 2교시",
+    examKeys: ["기출문제/2023년도 제34회 감정평가사 1차시험 2교시.pdf"],
+    solveFlow: ["계정과목 분류", "분개와 계산식 동시 작성", "시간 초과 문제를 재풀이 세트로 이동"],
+    deliverables: ["분개 템플릿", "계산 실수 로그", "재풀이 문제 세트"]
+  }
+];
+
+const uploadedExamInsights = [
+  {
+    title: "2023년 1차 1교시 분석",
+    tag: "민법·경제학·부동산학",
+    examKeys: ["기출문제/2023년도 제34회 감정평가사 1차시험 1교시.pdf"],
+    points: ["민법은 조문 요건과 판례 문구를 기본서 목차에 연결합니다.", "경제학은 그래프 이동과 계산식을 문제 유형별로 분리합니다.", "부동산학은 개념 정의, 정책 비교, 예외 표현을 선지 단위로 태그화합니다."]
+  },
+  {
+    title: "2023년 1차 2교시 분석",
+    tag: "관계법규·회계학",
+    examKeys: ["기출문제/2023년도 제34회 감정평가사 1차시험 2교시.pdf"],
+    points: ["관계법규는 법령별 절차, 기간, 권한 주체를 표로 정리합니다.", "회계학은 분개, 원가 흐름, 계산 실수 유형을 풀이 노트로 누적합니다.", "두 과목 모두 기본서 단원 뒤에 바로 풀 수 있는 복습 문제로 배치합니다."]
+  }
+];
+
 const qaItems = [
   {
     title: "실무 답안에서 계산 과정은 어느 정도 써야 하나요?",
@@ -564,6 +637,85 @@ function analysisCard(item, index) {
   `;
 }
 
+function findResourceByKey(key) {
+  return resources.find((item) => storageKeyFor(item) === key);
+}
+
+function linkedExamButton(item) {
+  if (!item) return "";
+
+  return `
+    <a class="open-link" href="${getResourceHref(item)}" target="_blank" rel="noreferrer">
+      ${icon("open")}
+      <span>${escapeHtml(item.title)}</span>
+    </a>
+  `;
+}
+
+function linkedStudyCard(item) {
+  const linkedExams = item.examKeys.map(findResourceByKey).filter(Boolean);
+  return `
+    <article class="linked-study-card">
+      <header>
+        <div>
+          <div class="resource-meta">
+            <span class="chip ${escapeHtml(item.tone)}">${escapeHtml(item.stage)}</span>
+            <span class="chip green">${escapeHtml(item.subject)}</span>
+            <span class="chip">${escapeHtml(item.problemScope)}</span>
+          </div>
+          <h3>${escapeHtml(item.textbook)}</h3>
+        </div>
+      </header>
+      <p>${escapeHtml(item.lectureFocus)}</p>
+      <div class="linked-study-section">
+        <strong>풀이 흐름</strong>
+        <ol class="step-list">
+          ${item.solveFlow.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}
+        </ol>
+      </div>
+      <div class="linked-study-section">
+        <strong>제공 자료</strong>
+        <div class="tag-row">
+          ${item.deliverables.map((tag) => `<span class="chip gold">${escapeHtml(tag)}</span>`).join("")}
+        </div>
+      </div>
+      <footer class="link-list">
+        ${linkedExams.map(linkedExamButton).join("")}
+      </footer>
+    </article>
+  `;
+}
+
+function uploadedExamInsightCard(item, index) {
+  const linkedExams = item.examKeys.map(findResourceByKey).filter(Boolean);
+  return `
+    <article class="insight-panel">
+      <span class="chip ${["blue", "rose"][index % 2]}">${escapeHtml(item.tag)}</span>
+      <h3>${escapeHtml(item.title)}</h3>
+      <ul class="point-list">
+        ${item.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
+      </ul>
+      <footer class="link-list">
+        ${linkedExams.map(linkedExamButton).join("")}
+      </footer>
+    </article>
+  `;
+}
+
+function renderLinkedStudySection(items = lectureProblemLinks) {
+  return `
+    <section class="section-head">
+      <div>
+        <p class="eyebrow">Lecture To Problems</p>
+        <h2>기본서 강의와 기출문제 연동</h2>
+      </div>
+    </section>
+    <section class="linked-study-grid">
+      ${items.map(linkedStudyCard).join("")}
+    </section>
+  `;
+}
+
 function renderResourceShell({ title, eyebrow, description, scope, showFilters = true }) {
   currentResourceScope = scope;
   return `
@@ -640,6 +792,7 @@ function renderLecturesPage() {
       ${subjectGrid("1차")}
       ${subjectGrid("2차")}
     </section>
+    ${renderLinkedStudySection()}
   `;
 }
 
@@ -681,6 +834,7 @@ function renderPracticePage() {
       <div><p class="eyebrow">Practice Set</p><h2>풀이 자료</h2></div>
     </section>
     <section class="resource-grid">${practiceResources.map(resourceCard).join("")}</section>
+    ${renderLinkedStudySection(lectureProblemLinks.slice(0, 5))}
   `;
 }
 
@@ -693,6 +847,8 @@ function renderAnalysisPage() {
         <p>자료실의 기출과 기본서를 기준으로 약점, 출제 흐름, 예상 훈련 단위를 나눕니다.</p>
       </div>
     </section>
+    <section class="insight-grid">${uploadedExamInsights.map(uploadedExamInsightCard).join("")}</section>
+    ${renderLinkedStudySection()}
     <section class="analysis-list wide-list">${analysisItems.map(analysisCard).join("")}</section>
     <section class="learning-board">
       <div class="board-column">
