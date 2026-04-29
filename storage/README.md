@@ -5,9 +5,10 @@
 ## 권장 흐름
 
 1. Vercel 프로젝트에 Blob 스토어를 연결합니다.
-2. 환경 변수를 로컬로 가져옵니다.
-3. `npm run storage:upload`로 `Data` 폴더 파일을 업로드합니다.
-4. 생성된 `storage/blob-upload-manifest.json`을 커밋하면 빌드 때 `storage-map.js`가 만들어져 정확한 Blob URL로 연결됩니다.
+2. `BLOB_READ_WRITE_TOKEN`을 `.env.local`, `.env`, 또는 셸 환경 변수에 넣습니다.
+3. `npm run storage:dry-run`으로 업로드 대상을 확인합니다.
+4. `npm run storage:activate`로 `Data` 폴더 파일을 업로드하고 정적 빌드 URL 맵을 생성합니다.
+5. 생성된 `storage/blob-upload-manifest.json`을 커밋하면 빌드 때 `storage-map.js`가 만들어져 정확한 Blob URL로 연결됩니다.
 
 ## 대체 흐름
 

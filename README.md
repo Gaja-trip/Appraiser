@@ -35,14 +35,15 @@ MATERIALS_PATH_PREFIX=
 
 ### 방법 2: Vercel Blob URL 맵으로 연결
 
-Vercel Blob 스토어 연결 후 환경 변수를 받은 상태에서 실행합니다.
+Vercel Blob 스토어를 연결하고 `BLOB_READ_WRITE_TOKEN`을 `.env.local` 또는 `.env`에 넣은 뒤 실행합니다.
 
 ```bash
-npm run storage:upload
-npm run build
+npm install
+npm run storage:dry-run
+npm run storage:activate
 ```
 
-업로드 결과는 `storage/blob-upload-manifest.json`에 저장되고, 빌드 시 `storage-map.js`로 변환되어 각 자료가 정확한 외부 URL을 열게 됩니다.
+`storage:activate`는 `Data` 자료 인벤토리를 갱신하고, Vercel Blob에 업로드한 뒤, `storage/blob-upload-manifest.json`을 빌드용 `storage-map.js`로 변환합니다. 생성된 `storage/blob-upload-manifest.json`을 커밋하면 배포된 페이지가 각 자료의 Blob URL을 정확히 열게 됩니다.
 
 자료 인벤토리만 갱신하려면:
 

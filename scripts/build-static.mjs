@@ -1,7 +1,10 @@
 import { mkdir, readFile, rm, writeFile, copyFile } from "node:fs/promises";
 import path from "node:path";
+import { loadEnvFiles } from "./env.mjs";
 
 const root = process.cwd();
+loadEnvFiles(root);
+
 const dist = path.join(root, "dist");
 
 const staticFiles = [

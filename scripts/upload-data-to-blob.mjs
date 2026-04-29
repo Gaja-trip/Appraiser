@@ -2,8 +2,11 @@ import { createReadStream } from "node:fs";
 import { readdir, stat, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { Readable } from "node:stream";
+import { loadEnvFiles } from "./env.mjs";
 
 const root = process.cwd();
+loadEnvFiles(root);
+
 const dataDir = path.join(root, "Data");
 const outDir = path.join(root, "storage");
 const outFile = path.join(outDir, "blob-upload-manifest.json");
@@ -34,10 +37,14 @@ async function walk(directory, base = directory) {
 }
 
 if (!process.env.BLOB_READ_WRITE_TOKEN && !dryRun) {
-  throw new Error("BLOB_READ_WRITE_TOKEN is required. Add a Vercel Blob store and pull env vars first.");
+  throw new Error("BLOB_READ_WRITE_TOKEN is required. Add it to .env.local, .env, or your shell environment.");
 }
 
 const files = await walk(dataDir);
+
+if (!files.length) {
+  throw new Error(`No files found in ${path.relative(root, dataDir)}.`);
+}
 
 if (dryRun) {
   console.log(`Would upload ${files.length} files to Vercel Blob under ${prefix}/`);
@@ -48,13 +55,25 @@ if (dryRun) {
   process.exit(0);
 }
 
-const { put } = await import("@vercel/blob");
+let put;
+try {
+  ({ put } = await import("@vercel/blob"));
+} catch (error) {
+  if (error.code === "ERR_MODULE_NOT_FOUND") {
+    throw new Error("Missing @vercel/blob. Run npm install before uploading materials.");
+  }
+  throw error;
+}
+
 const uploads = [];
 
 for (const file of files) {
   const pathname = `${prefix}/${file.key}`;
   const blob = await put(pathname, Readable.toWeb(createReadStream(file.absolutePath)), {
-    access: "public"
+    access: "public",
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    token: process.env.BLOB_READ_WRITE_TOKEN
   });
 
   uploads.push({

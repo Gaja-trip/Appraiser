@@ -39,7 +39,7 @@ MATERIALS_PATH_PREFIX
 BLOB_READ_WRITE_TOKEN
 ```
 
-`BLOB_READ_WRITE_TOKEN`은 로컬에서 `npm run storage:upload`를 실행할 때만 필요합니다.
+`BLOB_READ_WRITE_TOKEN`은 로컬에서 `npm run storage:activate`를 실행할 때만 필요합니다.
 
 ## 배포 흐름
 
@@ -68,8 +68,8 @@ Vercel Blob을 사용할 경우:
 
 ```bash
 npm install
-npm run storage:upload
-npm run build
+npm run storage:dry-run
+npm run storage:activate
 ```
 
-업로드 결과인 `storage/blob-upload-manifest.json`이 있으면 빌드 시 `dist/storage-map.js`에 URL 맵이 들어갑니다.
+`storage:activate`는 `Data` 인벤토리를 갱신하고 Blob 업로드 후 정적 빌드까지 실행합니다. 업로드 결과인 `storage/blob-upload-manifest.json`이 있으면 빌드 시 `dist/storage-map.js`에 URL 맵이 들어갑니다.
